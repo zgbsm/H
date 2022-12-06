@@ -21,6 +21,7 @@ def scan_daliy_vuln():
     #更新nuclei的poc
     vuln_scan = task.send_task('nuclei.run', args=("",False,"",True,), queue='nuclei')
     while True:
+        time.sleep(1)
         if vuln_scan.successful():
             break
     
@@ -87,6 +88,7 @@ class tool_nuclei(Thread):
             vuln_scan = task.send_task('nuclei.run', args=(scan_target,daily,github,), queue='nuclei')
 
             while True:
+                time.sleep(1)
                 if vuln_scan.successful():
                     lock.acquire()
                     save_result(target, target['http_target'], vuln_scan.result, cursor, conn, target['http_user'])

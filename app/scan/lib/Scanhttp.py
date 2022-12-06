@@ -62,6 +62,7 @@ def tool_httpx(task, subdomain_list, target_id, conn, cursor, current_user):
         cursor.execute(sql,(target_id, httpx_scan.id,))
         conn.commit()
         while True:
+            time.sleep(1)
             if httpx_scan.successful():
                 try:
                     save_result(target_id, httpx_scan.result['result'], cursor, conn, current_user)
@@ -93,6 +94,7 @@ def tool_screenshot(task, target_id, conn, cursor):
         cursor.execute(in_sql,(target_id, screenshot_scan.id,))
         conn.commit()
         while True:
+            time.sleep(1)
             if screenshot_scan.successful():
                 try:
                     save_result_screenshot(screenshot_scan.result['result'], cursor, conn)
@@ -126,6 +128,7 @@ def tool_ehole(task, target_id, conn, cursor):
         cursor.execute(in_sql,(target_id, finger_scan.id,))
         conn.commit()
         while True:
+            time.sleep(1)
             if finger_scan.successful():
                 try:
                     save_result_finger(finger_scan.result['result'], cursor, conn)

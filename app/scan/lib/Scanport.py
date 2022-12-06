@@ -97,6 +97,7 @@ class portscan(Thread):
                 conn.commit()
                 lock.release()
                 while True:
+                    time.sleep(1)
                     if naabu_scan.successful():
                         try:
                             lock.acquire()

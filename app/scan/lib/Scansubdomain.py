@@ -58,6 +58,7 @@ def tool_subfinder(task, domain_query, target_id, conn, cursor, current_user):
         conn.commit()
 
         while True:
+            time.sleep(1)
             if subfinder_scan.successful():
                 try:
                     save_result(target_id, subfinder_scan.result, conn, cursor, current_user)
@@ -83,6 +84,7 @@ def tool_amass(task, domain_query, target_id, conn, cursor, current_user):
         cursor.execute(sql,(target_id, amass_scan.id,))
         conn.commit()
         while True:
+            time.sleep(1)
             if amass_scan.successful():
                 try:
                     save_result(target_id, amass_scan.result, conn, cursor, current_user)
@@ -163,6 +165,7 @@ def tool_domaininfo(task, target_id, conn, cursor):
 
         domaininfo_scan = task.send_task('domaininfo.run', args=(sub_list,), queue='domaininfo')
         while True:
+            time.sleep(1)
             if domaininfo_scan.successful():
                 try:
                     #print(domaininfo_scan.result)
@@ -289,6 +292,7 @@ class Shufflednsscan(Thread):
             conn.commit()
             lock.release()
             while True:
+                time.sleep(1)
                 if shuffledns_scan.successful():
                     
                     lock.acquire()

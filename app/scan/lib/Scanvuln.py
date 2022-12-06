@@ -78,6 +78,7 @@ def scan_vuln(scanmethod_query, target_id, current_user):
         #更新nuclei的poc
         vuln_scan = task.send_task('nuclei.run', args=("",False,"",True,), queue='nuclei')
         while True:
+            time.sleep(1)
             if vuln_scan.successful():
                 break
 
@@ -160,6 +161,7 @@ class tool_nuclei(Thread):
             lock.release()
 
             while True:
+                time.sleep(1)
                 if vuln_scan.successful():
                     try:
                         lock.acquire()
@@ -196,6 +198,7 @@ class tool_fscan(Thread):
             vuln_scan = task.send_task('fscan.run', args=(target,port,), queue='fscan')
 
             while True:
+                time.sleep(1)
                 if vuln_scan.successful():
                     try:
                         lock.acquire()
@@ -226,6 +229,7 @@ def tool_xray(task,http_query, conn, cursor, target_id):
         nowtime = starttime
 
         while True:
+            time.sleep(1)
             if xray_scan.successful():
                 sql = "DELETE FROM Celerytask WHERE celery_id= %s"
                 cursor.execute(sql,(xray_scan.id,))
